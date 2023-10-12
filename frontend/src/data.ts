@@ -21,7 +21,7 @@ export const sampleProducts: Product[] = [
     price: 100,
     countInStock: 20,
     brand: 'Adidas',
-    rating: 2.0,
+    rating: 3.2,
     numReviews: 10,
     description: 'high quality product',
   },

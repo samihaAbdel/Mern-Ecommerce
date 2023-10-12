@@ -6,7 +6,7 @@ import Rating from './Rating'
 
 function ProductItem({ product }: { product: Product }) {
   return (
-    <Card style={{ height: '200px' }}>
+    <Card>
       <Link to={`/product/${product.slug}>`}>
         <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>
@@ -14,7 +14,11 @@ function ProductItem({ product }: { product: Product }) {
         <Link to={`/product/${product.slug}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
+        <Rating
+          rating={product.rating}
+          numReviews={product.numReviews}
+          caption={''}
+        />
         <Card.Text>${product.price}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>

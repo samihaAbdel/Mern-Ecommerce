@@ -20,10 +20,13 @@ function App() {
         </Navbar>
       </header>
       <main>
-        <Container className="mt-3">
-          <Outlet />
-        </Container>
+        <div>
+          <Container className="mt-3 mb-3">
+            <Outlet />
+          </Container>
+        </div>
       </main>
+
       <footer>
         <div className="text-center">All right reserved</div>
       </footer>
