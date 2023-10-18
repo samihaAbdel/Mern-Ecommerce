@@ -1,6 +1,22 @@
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
 import { sampleProducts } from './data'
+import mongoose from 'mongoose'
+
+dotenv.config()
+const MONGODB_URI =
+  process.env.MONGODB_URI || 'mongodb://localhost/tsmernamazona'
+mongoose.set('strictQuery', true)
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log('connected to mongodb')
+  })
+  .catch(() => {
+    console.log('error mongodb')
+  })
+
 const app = express()
 app.use(
   cors({

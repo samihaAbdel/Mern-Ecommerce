@@ -6,7 +6,15 @@ import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import { getError } from '../utils'
 import { ApiError } from '../types/ApiErrors'
-import { Col, ListGroup, Row } from 'react-bootstrap'
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  Col,
+  ListGroup,
+  Row,
+} from 'react-bootstrap'
 import Rating from '../components/Rating'
 
 export default function Productpage() {
@@ -25,7 +33,12 @@ export default function Productpage() {
     <div>
       <Row>
         <Col md={6}>
-          <img className="large" src={data.image} alt={data.name}></img>
+          <img
+            className="large"
+            src={data.image}
+            alt={data.name}
+            style={{ height: '400px', width: '400px' }}
+          ></img>
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
@@ -49,7 +62,39 @@ export default function Productpage() {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={3}></Col>
+        <Col md={3}>
+          <Card>
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>${data.price}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {data.countInStock > 0 ? (
+                        <Badge bg="success">In stock</Badge>
+                      ) : (
+                        <Badge bg="danger">Unavailable</Badge>
+                      )}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                {data.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button variant="primary">Add to Cart</Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Col, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import ProductItem from '../components/ProductItem'
