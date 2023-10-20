@@ -11,12 +11,13 @@ import {
 import App from './App.tsx'
 import './index.css'
 import HomePage from './pages/HomePage.tsx'
-import Productpage from './pages/Productpage.tsx'
+import Productpage from './pages/ProductPage.tsx'
 import axios from 'axios'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { StoreProvider } from './Store.tsx'
+import Cartpage from './pages/CartPage.tsx'
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/'
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} element={<HomePage />} />
       <Route path="product/:slug" element={<Productpage />} />
+      <Route path="cart" element={<Cartpage />} />
     </Route>
   )
 )

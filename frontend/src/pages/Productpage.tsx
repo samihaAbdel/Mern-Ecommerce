@@ -1,33 +1,47 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetProductDetailsBySlugQuery } from '../hooks/productHooks'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
-import { getError } from '../utils'
+import { getError, convertProductToCartItem } from '../utils'
 import { ApiError } from '../types/ApiErrors'
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  Col,
-  ListGroup,
-  Row,
-} from 'react-bootstrap'
+import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import { Store } from '../Store'
+import { toast } from 'react-toastify'
 
 export default function Productpage() {
   const params = useParams()
   const { slug } = params
-  const { data, isLoading, error } = useGetProductDetailsBySlugQuery(slug!)
-  console.log(data, isLoading, error)
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useGetProductDetailsBySlugQuery(slug!)
+  const navigate = useNavigate
+  const { state, dispatch } = useContext(Store)
+  const { cart } = state
 
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x) => x._id === product!._id)
+    const quantity = existItem ? existItem.quantity + 1 : 1
+    if (product!.countInStock < quantity) {
+      toast.warn('Sorry, Product is out of stock')
+      return
+    }
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...convertProductToCartItem(product!), quantity },
+    })
+    toast.success('Product added to the cart')
+    navigate('/cart')
+  }
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
     <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>
-  ) : !data ? (
+  ) : !product ? (
     <MessageBox variant="warning">Product Not Found</MessageBox>
   ) : (
     <div>
@@ -35,8 +49,8 @@ export default function Productpage() {
         <Col md={6}>
           <img
             className="large"
-            src={data.image}
-            alt={data.name}
+            src={product.image}
+            alt={product.name}
             style={{ height: '400px', width: '400px' }}
           ></img>
         </Col>
@@ -44,21 +58,21 @@ export default function Productpage() {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
-                <title>{data.name}</title>
+                <title>{product.name}</title>
               </Helmet>
-              <h1>{data.name}</h1>
+              <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
-                rating={data.rating}
-                numReviews={data.numReviews}
+                rating={product.rating}
+                numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item> Price: ${data.price}</ListGroup.Item>
+            <ListGroup.Item> Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               {' '}
               Description:
-              <p>{data.description}</p>
+              <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -69,14 +83,14 @@ export default function Productpage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col>${data.price}</Col>
+                    <Col>${product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {data.countInStock > 0 ? (
+                      {product.countInStock > 0 ? (
                         <Badge bg="success">In stock</Badge>
                       ) : (
                         <Badge bg="danger">Unavailable</Badge>
@@ -84,10 +98,12 @@ export default function Productpage() {
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {data.countInStock > 0 && (
+                {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
