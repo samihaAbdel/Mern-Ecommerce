@@ -1,4 +1,11 @@
-import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap'
+import {
+  Badge,
+  Button,
+  Container,
+  Nav,
+  NavDropdown,
+  Navbar,
+} from 'react-bootstrap'
 import { Link, Outlet } from 'react-router-dom'
 import { Store } from './Store'
 import { useContext, useEffect } from 'react'
@@ -8,16 +15,24 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 function App() {
   const {
-    state: { mode, cart },
+    state: { mode, cart, userInfo },
     dispatch,
   } = useContext(Store)
 
   useEffect(() => {
     document.body.setAttribute('data-bs-theme', mode)
-  }, [mode])
+  }, [mode, userInfo])
 
   const switchModehandler = () => {
     dispatch({ type: 'SWITCH_MODE' })
+  }
+  const signoutHandler = () => {
+    dispatch({ type: 'USER_SIGNOUT' })
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('cartItems')
+    localStorage.removeItem('shippingAdress')
+    localStorage.removeItem('paymentMethod')
+    window.location.href = '/signin'
   }
   return (
     <div className="d-flex flex-column vh-100">
@@ -38,9 +53,22 @@ function App() {
                 </Badge>
               )}
             </Link>
-            <a href="/signin" className="nav-link">
-              Sign In
-            </a>
+            {userInfo ? (
+              <NavDropdown title={userInfo.userName} id="basic-nav-dropdown">
+                <Link
+                  className="dropdown-item"
+                  to="#signout"
+                  onClick={signoutHandler}
+                >
+                  Sign Out
+                </Link>
+              </NavDropdown>
+            ) : (
+              <Link className="nav-link" to="/signin">
+                Sign In
+              </Link>
+            )}
+
             <Button variant={mode} onClick={switchModehandler}>
               <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'}></i>
             </Button>
