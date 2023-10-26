@@ -7,9 +7,9 @@ export const orderRouter = express.Router()
 orderRouter.post(
   '/',
   isAuth,
-  asyncHandler(async (req: request, res: response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     if (req.body.orderItems.length === 0) {
-      res.status(400).send({ message: 'Cart is empty' })
+      res.status(400).json({ message: 'Cart is empty' })
     } else {
       const createOrder = await OrderModel.create({
         orderItems: req.body.orderItems.map((x: Product) => ({
@@ -19,7 +19,7 @@ orderRouter.post(
         shippingAdress: req.body.shippingAdress,
         paymentMethod: req.body.paymentMethod,
         itemsPrice: req.body.itemsPrice,
-        shippingPrice: req.body.shippingAdress,
+        shippingPrice: req.body.shippingPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
         user: req.body._id,
