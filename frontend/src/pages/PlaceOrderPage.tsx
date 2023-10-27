@@ -60,32 +60,32 @@ export default function PlaceOrderPage() {
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Shipping</Card.Title>
+              <Card.Title>Shipping: </Card.Title>
               <Card.Text>
-                <strong>Name:</strong>
+                <strong>Name: </strong>
                 {cart.shippingAdress.fullName}
                 <br />
-                <strong>Address:</strong>
+                <strong>Address: </strong>
                 {cart.shippingAdress.adress},{cart.shippingAdress.city},
                 {cart.shippingAdress.postalCode},{cart.shippingAdress.country}
               </Card.Text>
-              <Link to="/shipping">Edit</Link>
+              <Link to="/shipping">Edit </Link>
             </Card.Body>
           </Card>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Payment</Card.Title>
+              <Card.Title>Payment: </Card.Title>
               <Card.Text>
-                <strong>Method:</strong>
+                <strong>Method: </strong>
                 {cart.paymentMethod}
               </Card.Text>
-              <Link to="/payment">Edit</Link>
+              <Link to="/payment">Edit </Link>
             </Card.Body>
           </Card>
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Items</Card.Title>
+              <Card.Title>Items: </Card.Title>
               <ListGroup variant="flush">
                 {cart.cartItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -106,24 +106,24 @@ export default function PlaceOrderPage() {
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to="/cart">Edit</Link>{' '}
+              <Link to="/cart">Edit </Link>{' '}
             </Card.Body>
           </Card>
         </Col>
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>Order Summary: </Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
+                    <Col>Items </Col>
                     <Col>${cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>{' '}
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
+                    <Col>Shipping: </Col>
                     <Col>${cart.shippinggPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
@@ -136,7 +136,7 @@ export default function PlaceOrderPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong>Order Total</strong>
+                      <strong>Order Total </strong>
                     </Col>
                     <Col>
                       <strong>${cart.totalPrice.toFixed(2)}</strong>
