@@ -1,4 +1,7 @@
 import express from 'express'
 
-const keyRouter = express.Router
-keyRouter.length({ clientId: process.env.PAYPAL_CLIENT_ID || 'sb' })
+export const keyRouter = express.Router()
+
+keyRouter.get('/paypal', (req, res) => {
+  res.json({ clientId: process.env.PAYPAL_CLIENT_ID || 'sb' })
+})
