@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Rating({ rating, numReviews, caption }) {
   // const { rating, numReviews, caption } = props
   return (

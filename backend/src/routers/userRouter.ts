@@ -35,8 +35,7 @@ userRouter.post(
       password: bcrypt.hashSync(req.body.password),
       // isAdmin: req.body.isAdmin, juste je voulais essayer
     } as User)
-
-    res.send({
+    res.json({
       _id: user._id,
       userName: user.userName,
       email: user.email,

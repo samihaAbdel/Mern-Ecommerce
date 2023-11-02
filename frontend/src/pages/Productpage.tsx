@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
+import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetProductDetailsBySlugQuery } from '../hooks/productHooks'
+import { toast } from 'react-toastify'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
-import { getError, convertProductToCartItem } from '../utils'
-import { ApiError } from '../types/ApiErrors'
-import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import { useGetProductDetailsBySlugQuery } from '../hooks/productHooks'
 import { Store } from '../Store'
-import { toast } from 'react-toastify'
+import { ApiError } from '../types/ApiErrors'
+import { getError, convertProductToCartItem } from '../utils'
 
 export default function Productpage() {
   const params = useParams()
@@ -19,7 +19,7 @@ export default function Productpage() {
     isLoading,
     error,
   } = useGetProductDetailsBySlugQuery(slug!)
-  const navigate = useNavigate
+  const navigate = useNavigate()
   const { state, dispatch } = useContext(Store)
   const { cart } = state
 
@@ -66,6 +66,7 @@ export default function Productpage() {
               <Rating
                 rating={product.rating}
                 numReviews={product.numReviews}
+                caption=""
               ></Rating>
             </ListGroup.Item>
             <ListGroup.Item> Price: ${product.price}</ListGroup.Item>

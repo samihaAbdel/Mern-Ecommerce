@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react'
 import {
   Badge,
   Button,
@@ -7,11 +8,10 @@ import {
   Navbar,
 } from 'react-bootstrap'
 import { Link, Outlet } from 'react-router-dom'
-import { Store } from './Store'
-import { useContext, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Store } from './Store'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const {
@@ -54,7 +54,13 @@ function App() {
               )}
             </Link>
             {userInfo ? (
-              <NavDropdown title={userInfo.userName} id="basic-nav-dropdown">
+              <NavDropdown
+                title={`Hello, ${userInfo.userName}`}
+                id="basic-nav-dropdown"
+              >
+                <LinkContainer to="/orderhistory">
+                  <NavDropdown.Item>Order History</NavDropdown.Item>
+                </LinkContainer>
                 <Link
                   className="dropdown-item"
                   to="#signout"

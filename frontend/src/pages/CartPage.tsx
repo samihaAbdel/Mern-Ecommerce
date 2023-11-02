@@ -1,11 +1,11 @@
 import { useContext } from 'react'
+import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import MessageBox from '../components/MessageBox'
 import { Store } from '../Store'
 import { CartItem } from '../types/Cart'
-import { toast } from 'react-toastify'
-import { Helmet } from 'react-helmet-async'
-import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
-import MessageBox from '../components/MessageBox'
 
 export default function Cartpage() {
   const navigate = useNavigate()
@@ -70,10 +70,10 @@ export default function Cartpage() {
                       </Button>{' '}
                       <span>{item.quantity}</span>
                       <Button
+                        variant={mode}
                         onClick={() =>
                           updateCarthandler(item, item.quantity + 1)
                         }
-                        variant={mode}
                         disabled={item.quantity === item.countInStock}
                       >
                         <i className="fas fa-plus-circle"></i>
@@ -101,7 +101,7 @@ export default function Cartpage() {
                 <ListGroup.Item>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items:): $
+                    items): $
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>

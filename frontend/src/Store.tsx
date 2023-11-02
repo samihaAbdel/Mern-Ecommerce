@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import React from 'react'
 import { Cart, CartItem, ShippingAdress } from './types/Cart'
 import { UserInfo } from './types/UserInfo'
@@ -28,8 +29,8 @@ const initialState: AppState = {
     paymentMethod: localStorage.getItem('paymentMethod')
       ? localStorage.getItem('paymentMethod')!
       : 'paypal',
-    itemPrice: 0,
-    shippinggPrice: 0,
+    itemsPrice: 0,
+    shippingPrice: 0,
     taxPrice: 0,
     totalPrice: 0,
   },
@@ -46,29 +47,27 @@ type Action =
   | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
 
 function reducer(state: AppState, action: Action): AppState {
-  let newItem
-  let existItem
-  let cartItems
   switch (action.type) {
     case 'SWITCH_MODE':
+      localStorage.setItem('mode', state.mode === 'dark' ? 'light' : 'dark')
       return { ...state, mode: state.mode === 'dark' ? 'light' : 'dark' }
 
     case 'CART_ADD_ITEM':
-      newItem = action.payload
-      existItem = state.cart.cartItems.find(
+      const newItem = action.payload
+      const existItem = state.cart.cartItems.find(
         (item: CartItem) => item._id === newItem._id
       )
-      cartItems = existItem
+      const carteItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
             item._id === existItem._id ? newItem : item
           )
         : [...state.cart.cartItems, newItem]
 
-      localStorage.setItem('cartItems', JSON.stringify(cartItems))
-      return { ...state, cart: { ...state.cart, cartItems } }
+      localStorage.setItem('cartItems', JSON.stringify(carteItems))
+      return { ...state, cart: { ...state.cart, cartItems: carteItems } }
 
     case 'CART_REMOVE_ITEM':
-      cartItems = state.cart.cartItems.filter(
+      const cartItems = state.cart.cartItems.filter(
         (item: CartItem) => item._id !== action.payload._id
       )
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
@@ -76,8 +75,10 @@ function reducer(state: AppState, action: Action): AppState {
 
     case 'CART_CLEAR':
       return { ...state, cart: { ...state.cart, cartItems: [] } }
+
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload }
+
     case 'USER_SIGNOUT':
       return {
         mode:
@@ -96,7 +97,7 @@ function reducer(state: AppState, action: Action): AppState {
             country: '',
           },
           itemsPrice: 0,
-          shippinggPrice: 0,
+          shippingPrice: 0,
           taxPrice: 0,
           totalPrice: 0,
         },

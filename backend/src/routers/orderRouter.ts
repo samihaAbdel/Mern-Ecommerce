@@ -1,9 +1,18 @@
 import express, { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
-import { isAuth } from '../utils'
-import { OrderModel } from '../models/orderModel'
+import { Order, OrderModel } from '../models/orderModel'
 import { Product } from '../models/productModel'
+import { isAuth } from '../utils'
 export const orderRouter = express.Router()
+
+orderRouter.get(
+  '/mine',
+  isAuth,
+  asyncHandler(async (req: Request, res: Response) => {
+    const orders = await OrderModel.find({ user: req.user._id })
+    res.json(orders)
+  })
+)
 orderRouter.get(
   '/:id',
   isAuth,
@@ -35,8 +44,8 @@ orderRouter.post(
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
         user: req.body._id,
-      })
-      res.status(201).json({ message: 'Order Not Found', order: createOrder })
+      } as Order)
+      res.status(201).json({ message: 'Order Created', order: createOrder })
     }
   })
 )
@@ -44,10 +53,10 @@ orderRouter.put(
   '/:id/pay',
   isAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    const order = await OrderModel.findById(req.params.id).populate('user')
+    const order = await OrderModel.findById(req.params.id)
 
     if (order) {
-      order.ispaid = true
+      order.isPaid = true
       order.paidAt = new Date(Date.now())
       order.paymentResult = {
         paymentId: req.body.id,

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { Store } from '../Store'
 import { Navigate, Outlet } from 'react-router-dom'
+import { Store } from '../Store'
 
 export default function ProtectedRoute() {
   const {
@@ -11,6 +11,4 @@ export default function ProtectedRoute() {
   } else {
     return <Navigate to="/signin" />
   }
-
-  return <div></div>
 }

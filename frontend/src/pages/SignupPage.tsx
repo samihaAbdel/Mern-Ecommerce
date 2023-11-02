@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Store } from '../Store'
-import { useSignupMutation } from '../hooks/userHooks'
-import { toast } from 'react-toastify'
-import { ApiError } from '../types/ApiErrors'
-import { getError } from '../utils'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useSignupMutation } from '../hooks/userHooks'
+import { Store } from '../Store'
+import { ApiError } from '../types/ApiErrors'
+import { getError } from '../utils'
 
 export default function SignupPage() {
   const navigate = useNavigate()

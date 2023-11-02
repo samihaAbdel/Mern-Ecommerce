@@ -8,12 +8,11 @@ import {
 } from 'react-router-dom'
 
 // import 'bootstrap/dist/css/bootstrap.min.css'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
 import './index.css'
 import HomePage from './pages/HomePage.tsx'
 import Productpage from './pages/ProductPage.tsx'
-import axios from 'axios'
-import { HelmetProvider } from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { StoreProvider } from './Store.tsx'
@@ -26,9 +25,11 @@ import ProtectedRoute from './components/ProtectedRoute.tsx'
 import PlaceOrderPage from './pages/PlaceOrderPage.tsx'
 import OrderPage from './pages/OrderPage.tsx'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import OrderHistoryPage from './pages/OrderHistoryPage.tsx'
+// import axios from 'axios'
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/'
+// axios.defaults.baseURL =
+//   process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,15 +44,16 @@ const router = createBrowserRouter(
         <Route path="payment" element={<PaymentMethodPage />} />
         <Route path="placeorder" element={<PlaceOrderPage />} />
         <Route path="/orders/:id" element={<OrderPage />} />
+        <Route path="/orderhistory" element={<OrderHistoryPage />} />
       </Route>
     </Route>
   )
 )
 const queryClient = new QueryClient()
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <StoreProvider>
-      <PayPalScriptProvider options={{ 'client-id': 'sb' }} deferLoading={true}>
+      <PayPalScriptProvider options={{ clientId: 'sb' }} deferLoading={true}>
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
             <RouterProvider router={router} />

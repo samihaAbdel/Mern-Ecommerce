@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Store } from '../Store'
-import { Helmet } from 'react-helmet-async'
-import CheckoutSteps from '../components/CheckoutSteps'
 import { Button, Form } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
+import { useNavigate } from 'react-router-dom'
+import CheckoutSteps from '../components/CheckoutSteps'
+import { Store } from '../Store'
 
 export default function ShippingAdressPage() {
   const navigate = useNavigate()

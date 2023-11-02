@@ -21,7 +21,7 @@ export type Cart = {
   shippingAdress: ShippingAdress
   paymentMethod: string
   itemsPrice: number
-  shippinggPrice: number
+  shippingPrice: number
   taxPrice: number
   totalPrice: number
 }

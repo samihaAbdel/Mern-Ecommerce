@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { Product } from '../types/Product'
+import { useContext } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import Rating from './Rating'
+import { toast } from 'react-toastify'
 import { Store } from '../Store'
 import { CartItem } from '../types/Cart'
+import { Product } from '../types/Product'
 import { convertProductToCartItem } from '../utils'
-import { toast } from 'react-toastify'
+import Rating from './Rating'
 
 function ProductItem({ product }: { product: Product }) {
   const { state, dispatch } = useContext(Store)

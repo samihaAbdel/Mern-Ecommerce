@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Store } from '../Store'
-import { useSigninMutation } from '../hooks/userHooks'
 import { Button, Container, Form } from 'react-bootstrap'
-import { ApiError } from '../types/ApiErrors'
-import { toast } from 'react-toastify'
-import { getError } from '../utils'
 import { Helmet } from 'react-helmet-async'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import LoadingBox from '../components/LoadingBox'
+import { useSigninMutation } from '../hooks/userHooks'
+import { Store } from '../Store'
+import { ApiError } from '../types/ApiErrors'
+import { getError } from '../utils'
 
 export default function SigninPage() {
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ export default function SigninPage() {
   }, [navigate, redirect, userInfo])
 
   return (
-    <Container className=" ">
+    <Container className="small-container ">
       <Helmet>
         <title>Sign In</title>
       </Helmet>
