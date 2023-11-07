@@ -19,7 +19,6 @@ orderRouter.get(
   asyncHandler(async (req: Request, res: Response) => {
     const order = await OrderModel.findById(req.params.id)
     if (order) {
-      // console.log(order.user)
       res.json(order)
     } else {
       res.status(404).json({ message: 'Order not Found' })
