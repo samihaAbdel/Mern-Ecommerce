@@ -19,6 +19,7 @@ orderRouter.get(
   asyncHandler(async (req: Request, res: Response) => {
     const order = await OrderModel.findById(req.params.id)
     if (order) {
+      // console.log(order.user)
       res.json(order)
     } else {
       res.status(404).json({ message: 'Order not Found' })
@@ -43,7 +44,7 @@ orderRouter.post(
         shippingPrice: req.body.shippingPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
-        user: req.body._id,
+        user: req.user._id,
       } as Order)
       res.status(201).json({ message: 'Order Created', order: createOrder })
     }

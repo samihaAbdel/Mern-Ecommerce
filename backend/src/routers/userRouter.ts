@@ -14,7 +14,7 @@ userRouter.post(
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.json({
           _id: user._id,
-          userName: user.userName,
+          name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
           token: generateToken(user),
@@ -30,14 +30,14 @@ userRouter.post(
   '/signup',
   asyncHandler(async (req: Request, res: Response) => {
     const user = await UserModel.create({
-      userName: req.body.userName,
+      name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
       // isAdmin: req.body.isAdmin, juste je voulais essayer
     } as User)
     res.json({
       _id: user._id,
-      userName: user.userName,
+      name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user),

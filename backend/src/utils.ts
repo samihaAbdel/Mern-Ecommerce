@@ -6,7 +6,7 @@ export const generateToken = (user: User) => {
   return jwt.sign(
     {
       _id: user._id,
-      userName: user.userName,
+      name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
     },
@@ -23,7 +23,7 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET || 'kallelsFamily')
     req.user = decode as {
       _id: string
-      userName: string
+      name: string
       email: string
       isAdmin: boolean
       token: string

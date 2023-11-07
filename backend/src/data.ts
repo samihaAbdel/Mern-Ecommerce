@@ -54,13 +54,13 @@ export const sampleProducts: Product[] = [
 ]
 export const sampleUsers: User[] = [
   {
-    userName: 'Joe',
+    name: 'Joe',
     email: 'admin@exemple.com',
     password: bcrypt.hashSync('123456'),
     isAdmin: true,
   },
   {
-    userName: 'Jhon',
+    name: 'Jhon',
     email: 'user@usermail.com',
     password: bcrypt.hashSync('123456'),
     isAdmin: false,

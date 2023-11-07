@@ -14,7 +14,7 @@ export default function SignupPage() {
   const redirectInUrl = new URLSearchParams(search).get('redirect')
   const redirect = redirectInUrl ? redirectInUrl : '/'
 
-  const [userName, setUserName] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -38,7 +38,7 @@ export default function SignupPage() {
     }
     try {
       const data = await signup({
-        userName,
+        name,
         email,
         password,
       })
@@ -58,10 +58,7 @@ export default function SignupPage() {
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control
-            onChange={(e) => setUserName(e.target.value)}
-            required
-          />
+          <Form.Control onChange={(e) => setName(e.target.value)} required />
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>

@@ -1,7 +1,6 @@
 import { prop, getModelForClass, Ref, modelOptions } from '@typegoose/typegoose'
 import { Product } from './productModel'
 import { User } from './userModel'
-
 class ShippingAdress {
   @prop()
   public fullName?: string
@@ -14,9 +13,9 @@ class ShippingAdress {
   @prop()
   public country?: string
   @prop()
-  public lat?: string
+  public lat?: number
   @prop()
-  public lng?: string
+  public lng?: number
 }
 
 class Item {
@@ -25,7 +24,7 @@ class Item {
   @prop({ required: true })
   public quantity!: string
   @prop({ required: true })
-  public image!: string
+  public image!: number
   @prop({ required: true })
   public price!: number
   @prop({ ref: Product })
@@ -50,15 +49,18 @@ export class Order {
   public orderItems!: Item[]
   @prop()
   public shippingAdress?: ShippingAdress
+
   @prop({ ref: User })
   public user?: Ref<User>
+
   @prop({ required: true })
   public paymentMethod!: string
+
   @prop()
   public paymentResult?: PaymentResult
 
   @prop({ required: true, default: 0 })
-  public itemsPrice?: number
+  public itemsPrice!: number
   @prop({ required: true, default: 0 })
   public shippingPrice!: number
   @prop({ required: true, default: 0 })

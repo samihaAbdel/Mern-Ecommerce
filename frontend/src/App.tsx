@@ -55,7 +55,7 @@ function App() {
             </Link>
             {userInfo ? (
               <NavDropdown
-                title={`Hello, ${userInfo.userName}`}
+                title={`Hello, ${userInfo.name}`}
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/orderhistory">

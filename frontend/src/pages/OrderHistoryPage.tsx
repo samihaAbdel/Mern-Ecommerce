@@ -41,7 +41,7 @@ export default function OrderHistoryPage() {
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
                 <td>
                   {order.isDelivered
-                    ? order.delivredeAt.substring(0, 10)
+                    ? order.deliveredAt.substring(0, 10)
                     : 'No'}
                 </td>
                 <td>

@@ -22,17 +22,17 @@ export const useSigninMutation = () =>
 export const useSignupMutation = () =>
   useMutation({
     mutationFn: async ({
-      userName,
+      name,
       email,
       password,
     }: {
-      userName: string
+      name: string
       email: string
       password: string
     }) =>
       (
         await apiClient.post<UserInfo>('api/users/signup', {
-          userName,
+          name,
           email,
           password,
         })

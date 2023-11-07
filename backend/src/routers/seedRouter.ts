@@ -13,9 +13,6 @@ seedRouter.get(
     const createProducts = await ProductModel.insertMany(sampleProducts)
     await UserModel.deleteMany({})
     const createUsers = await UserModel.insertMany(sampleUsers)
-    // console.log(sampleUsers)
-    // console.log(UserModel)
-    // console.log(ProductModel)
     res.json({
       createProducts,
       createUsers,
