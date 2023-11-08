@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   PayPalButtons,
   PayPalButtonsComponentProps,
@@ -23,7 +24,7 @@ import { getError } from '../utils'
 export default function OrderPage() {
   const { state } = useContext(Store)
   const { userInfo } = state
-
+  console.log(userInfo)
   const params = useParams()
   const { id: orderId } = params
 
@@ -70,7 +71,7 @@ export default function OrderPage() {
 
   const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
     style: { layout: 'vertical' },
-    createOrder(data, actions) {
+    createOrder(_data, actions) {
       return actions.order
         .create({
           purchase_units: [
@@ -85,7 +86,7 @@ export default function OrderPage() {
           return orderID
         })
     },
-    onApprove(data, actions) {
+    onApprove(_data, actions) {
       return actions.order!.capture().then(async (details) => {
         try {
           await payOrder({ orderId: orderId!, ...details })
@@ -128,7 +129,7 @@ export default function OrderPage() {
               </Card.Text>
               {order.isDelivered ? (
                 <MessageBox variant="success">
-                  Delivred at {order.delivredeAt}
+                  Delivred at {order.deliveredAt}
                 </MessageBox>
               ) : (
                 <MessageBox variant="warning">Not Deliverd</MessageBox>

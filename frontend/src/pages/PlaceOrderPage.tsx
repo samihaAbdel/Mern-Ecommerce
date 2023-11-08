@@ -13,16 +13,17 @@ import { getError } from '../utils'
 export default function PlaceOrderPage() {
   const navigate = useNavigate()
   const { state, dispatch } = useContext(Store)
-  const { cart, userInfo } = state
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { cart } = state
 
   const round2 = (num: number) => Math.round(num * 100 + Number.EPSILON) / 100
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   )
 
-  cart.shippinggPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
+  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
   cart.taxPrice = round2(0.15 * cart.itemsPrice)
-  cart.totalPrice = cart.itemsPrice + cart.shippinggPrice + cart.taxPrice
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
 
   const { mutateAsync: createOrder, isLoading } = useCreateOrderMutation()
   const placeOrderHandler = async () => {
@@ -32,7 +33,7 @@ export default function PlaceOrderPage() {
         shippingAdress: cart.shippingAdress,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippinggPrice,
+        shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       })
@@ -124,7 +125,7 @@ export default function PlaceOrderPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping: </Col>
-                    <Col>${cart.shippinggPrice.toFixed(2)}</Col>
+                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
